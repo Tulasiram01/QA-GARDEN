@@ -1,0 +1,14 @@
+{
+  "test_name": "Login Page - Username Field Test",
+  "file_path": "tests/ui/login.spec.js",
+  "error_message": "Error: locator('input#username') not found.",
+  "stack_trace": "Error: locator(...) at tests/ui/login.spec.js:28:19\n    at async Page.fill (...)",
+  "logs": "Username input field did not appear on screen.",
+  "llm_model": "gemma:2b",
+  "bert_url": "N/A",
+  "labels": [
+    "UI",
+    "ElementNotFound",
+    "Login"
+  ]
+}

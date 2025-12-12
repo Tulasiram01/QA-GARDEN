@@ -1,0 +1,14 @@
+{
+    "test_name": "test_checkout_button_unresponsive",
+    "file_path": "tests/ui/test_checkout_page.py",
+    "error_message": "Element not interactable",
+    "stack_trace": "",
+    "logs": "[2025-12-05 14:22:10] INFO: Navigated to /checkout\n[2025-12-05 14:22:11] WARN: Click attempted on #checkout-btn but no action detected\n[2025-12-05 14:22:14] INFO: Retrying click on #checkout-btn (attempt 3)\n[2025-12-05 14:22:17] WARN: Element still not interactable after retries",
+    "llm_model": "gemma:2b",
+    "bert_url": "http://localhost:8001/triage",
+    "labels": [
+        "ui",
+        "flaky",
+        "interaction"
+    ]
+}

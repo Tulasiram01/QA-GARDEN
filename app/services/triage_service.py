@@ -164,7 +164,7 @@ DEFAULT_BASE_SCORES: Dict[str, float] = {
     "data_issue": 0.78,
     "env_config": 0.72,
     "test_code": 0.68,
-    "unknown": 0.45,
+    "unknown": 0.40,
 }
 
 def load_triage_config(config_path: str = "triage_config.json") -> Tuple[Dict[str, List[str]], Dict[str, float]]:
@@ -276,10 +276,126 @@ Logs: {payload.logs}
     # 2) Triage via rule-based classifier
     triage = classify_issue_rule_based(failure_text, payload.labels)
 
+    # 3) Extract extra structured fields INLINE (no new helper functions)
+    
+    # Extract failure_reason (first line or truncated to ~150 chars)
+    failure_reason = payload.error_message.split('\n')[0][:150] if payload.error_message else None
+    
+    # Extract suite_name from file_path (basename without extension)
+    import os
+    suite_name = os.path.splitext(os.path.basename(payload.file_path))[0] if payload.file_path else None
+    
+    # Extract error_line_number from stack trace using regex
+    import re
+    error_line_number = None
+    if payload.stack_trace:
+        # Try patterns: "line XXX", ":XXX:", ":XXX)", "at file.py:XXX"
+        line_match = re.search(r'line\s+(\d+)', payload.stack_trace, re.IGNORECASE)
+        if not line_match:
+            line_match = re.search(r':(\d+)[:)]', payload.stack_trace)
+        if not line_match:
+            line_match = re.search(r'at\s+[^\s]+:(\d+)', payload.stack_trace)
+        if line_match:
+            error_line_number = int(line_match.group(1))
+    
+    # Extract error_file_path from stack trace
+    error_file_path = None
+    if payload.stack_trace:
+        # Look for patterns like "at file.py:line" or "File \"file.py\""
+        file_match = re.search(r'at\s+([^\s:]+\.(?:py|js|ts|spec\.js|spec\.ts))', payload.stack_trace)
+        if not file_match:
+            file_match = re.search(r'File\s+"([^"]+)"', payload.stack_trace)
+        if file_match:
+            error_file_path = file_match.group(1)
+    
+    # FALLBACK: If stack trace is empty or didn't contain file path, use file_path from payload
+    if not error_file_path and payload.file_path:
+        error_file_path = payload.file_path
+    
+    # Truncate stack_trace to max 3000 characters
+    stack_trace_truncated = payload.stack_trace[:3000] if payload.stack_trace else None
+    
+    # Extract log_snippet (first 1000 characters)
+    log_snippet = payload.logs[:1000] if payload.logs else None
+    
+    # Extract timestamp from logs if available
+    timestamp = None
+    if payload.logs:
+        # Try to find timestamp patterns like [2025-12-05 14:22:10] or 2025-12-05T14:22:10
+        ts_match = re.search(r'\[?(\d{4}-\d{2}-\d{2}[\sT]\d{2}:\d{2}:\d{2})\]?', payload.logs)
+        if ts_match:
+            timestamp = ts_match.group(1)
+    
+    # Get internal category for severity computation
+    category = _rule_based_category(failure_text)
+    
+    # Compute severity INLINE based on category and test_name patterns
+    severity = "Medium"  # default
+    test_name_lower = payload.test_name.lower() if payload.test_name else ""
+    category_lower = category.lower()
+    
+    # Critical/High severity patterns
+    if any(keyword in test_name_lower for keyword in ["login", "checkout", "payment", "auth", "critical", "security"]):
+        severity = "Critical"
+    elif any(keyword in test_name_lower for keyword in ["purchase", "transaction", "order", "signup"]):
+        severity = "High"
+    elif category_lower in ["authentication", "backend_api"] and "500" in payload.error_message:
+        severity = "High"
+    # Low severity patterns
+    elif any(keyword in test_name_lower for keyword in ["visual", "ui", "style", "css", "color"]):
+        severity = "Low"
+    elif category_lower == "frontend_ui" and "button" in test_name_lower:
+        severity = "Low"
+    # Medium severity patterns (network, timeout, infrastructure)
+    elif category_lower in ["performance", "infrastructure", "database"]:
+        severity = "Medium"
+    elif "timeout" in payload.error_message.lower():
+        severity = "Medium"
+    
+    # Detect flakiness INLINE
+    is_flaky = False
+    flakiness_reasons = []
+    
+    error_msg_lower = payload.error_message.lower() if payload.error_message else ""
+    stack_lower = payload.stack_trace.lower() if payload.stack_trace else ""
+    combined_text = error_msg_lower + " " + stack_lower
+    
+    if "timeout" in combined_text or "timed out" in combined_text:
+        is_flaky = True
+        flakiness_reasons.append("Timeout detected")
+    if "retry" in combined_text or "retrying" in combined_text:
+        is_flaky = True
+        flakiness_reasons.append("Retry pattern detected")
+    if any(word in combined_text for word in ["intermittent", "occasionally", "sometimes", "randomly", "sporadic"]):
+        is_flaky = True
+        flakiness_reasons.append("Intermittent failure keywords detected")
+    if "race condition" in combined_text or "timing" in combined_text:
+        is_flaky = True
+        flakiness_reasons.append("Timing/race condition pattern detected")
+    
+    # Extract bug title and description for return
+    bug_title = bug.get("title", "No title")
+    bug_description = bug.get("description", "No description")
+
     return {
-        "bug_title": bug.get("title", "No title"),
-        "bug_description": bug.get("description", "No description"),
+        "bug_title": bug_title,
+        "bug_description": bug_description,
         "triage_label": triage["label"],
         "triage_confidence": triage["confidence"],
         "raw_failure_text": failure_text,
+        # Extra structured fields
+        "test_name": payload.test_name,
+        "failure_reason": failure_reason,
+        "suite_name": suite_name,
+        "error_file_path": error_file_path,
+        "stack_trace": stack_trace_truncated,
+        "error_line_number": error_line_number,
+        "browser": None,
+        "environment": None,
+        "log_snippet": log_snippet,
+        "category": category,
+        "severity": severity,
+        "is_flaky": is_flaky,
+        "flakiness_reasons": flakiness_reasons,
+        "timestamp": timestamp,
     }

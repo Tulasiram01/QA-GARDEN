@@ -1,0 +1,14 @@
+{
+  "test_name": "Dashboard Widget Render Test",
+  "file_path": "tests/ui/dashboardWidget.spec.js",
+  "error_message": "TypeError: Cannot read properties of undefined (reading 'length')",
+  "stack_trace": "TypeError: Cannot read properties of undefined\n    at renderChart (src/components/ChartWidget.js:54:22)\n    at DashboardWidget.update (src/components/DashboardWidget.js:33:16)\n    at tests/ui/dashboardWidget.spec.js:21:11",
+  "logs": "ChartWidget failed to render because input data array was undefined. Possible missing API mock or incorrect test setup.",
+  "llm_model": "gemma:2b",
+  "bert_url": "N/A",
+  "labels": [
+    "UI",
+    "ComponentCrash",
+    "TypeError"
+  ]
+}
