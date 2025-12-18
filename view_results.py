@@ -1,72 +1,135 @@
 """
-Clean viewer for triage results - displays each test separately and clearly
+View Triage Results
+Simple script to view triaged test results from the bug triage engine
 """
 import requests
 import json
+from datetime import datetime
 
+# Configuration
 API_URL = "http://192.168.1.13:8003/api/triage"
 
-print("\n" + "="*100)
-print(" TRIAGE RESULTS VIEWER")
-print("="*100)
-
-try:
-    response = requests.get(API_URL, timeout=200)
-    response.raise_for_status()
-    data = response.json()
+def view_latest():
+    """View the latest triage result"""
+    print("=" * 80)
+    print("LATEST TRIAGE RESULT")
+    print("=" * 80)
+    print()
     
-    total = data.get("total", 0)
-    results = data.get("results", [])
-    
-    print(f"\nTotal Results: {total}\n")
-    
-    if total == 0:
-        print("[INFO] No triage results found. Run convert_and_post.py first.")
-        exit()
-    
-    for i, result in enumerate(results, 1):
-        print("\n" + "="*100)
-        print(f" TEST #{i}")
-        print("="*100)
+    try:
+        response = requests.get(f"{API_URL}/latest", timeout=10)
+        response.raise_for_status()
+        result = response.json()
         
-        # Basic Info
-        print(f"\nTitle:            {result.get('title', 'N/A')}")
+        print_result(result)
         
-        desc = result.get('description', 'N/A')
-        if len(desc) > 300:
-            print(f"Description:      {desc[:300]}...")
+        print()
+        print("=" * 80)
+        print("TIP: To view all results, run:")
+        print("  python view_results.py all")
+        print("=" * 80)
+        
+    except requests.exceptions.ConnectionError:
+        print(f"✗ ERROR: Cannot connect to {API_URL}")
+        print("  Make sure the triage engine is running: python main.py")
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 404:
+            print("✗ No results found. Run some tests first:")
+            print("  python demo_playwright_failures.py")
         else:
-            print(f"Description:      {desc}")
-        
-        # Error Details
-        print(f"\n--- ERROR DETAILS ---")
-        print(f"Test URL:         {result.get('test_url', 'N/A')}")
-        print(f"Playwright Script: {result.get('playwright_script', 'N/A')}")
-        print(f"Error Line:       {result.get('error_line', 'N/A')}")
-        print(f"Status:           {result.get('status', 'N/A')}")
-        
-        # Stack Trace
-        stack = result.get('stack_trace', '')
-        if stack:
-            print(f"\n--- STACK TRACE ---")
-            if len(stack) > 500:
-                print(f"{stack[:500]}...")
-            else:
-                print(stack)
-        
-        # Metadata
-        print(f"\n--- METADATA ---")
-        print(f"Created At:       {result.get('created_at', 'N/A')}")
-        print(f"Result ID:        {result.get('id', 'N/A')}")
-        
-        print("\n" + "-"*100)
+            print(f"✗ ERROR: {e}")
+    except Exception as e:
+        print(f"✗ ERROR: {e}")
+
+def view_all():
+    """View all triage results"""
+    print("=" * 80)
+    print("ALL TRIAGE RESULTS")
+    print("=" * 80)
+    print()
     
-    print("\n" + "="*100)
-    print(f" END OF RESULTS ({total} total)")
-    print("="*100 + "\n")
+    try:
+        response = requests.get(API_URL, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+        
+        results = data.get('results', [])
+        total = data.get('total', 0)
+        
+        print(f"Total Results: {total}")
+        print()
+        
+        if not results:
+            print("No results found. Run some tests first:")
+            print("  python demo_playwright_failures.py")
+            return
+        
+        for i, result in enumerate(results, 1):
+            print(f"[{i}/{total}]")
+            print("-" * 80)
+            print_result(result, compact=True)
+            print()
+        
+    except requests.exceptions.ConnectionError:
+        print(f"✗ ERROR: Cannot connect to {API_URL}")
+        print("  Make sure the triage engine is running: python main.py")
+    except Exception as e:
+        print(f"✗ ERROR: {e}")
+
+def print_result(result, compact=False):
+    """Print a single triage result"""
+    print(f"ID: {result.get('id', 'N/A')}")
+    print(f"Created: {result.get('created_at', 'N/A')}")
+    print()
+    print(f"Title: {result.get('title', 'N/A')}")
+    print()
     
-except requests.exceptions.ConnectionError:
-    print("\n[ERROR] Cannot connect to FastAPI server at", API_URL)
-    print("[TIP] Make sure FastAPI is running: python main.py")
-except Exception as e:
-    print(f"\n[ERROR] {str(e)}")
+    if not compact:
+        print(f"Description:")
+        print(f"  {result.get('description', 'N/A')}")
+        print()
+    
+    print(f"Status: {result.get('status', 'N/A')}")
+    print(f"Error Line: {result.get('error_line', 'N/A')}")
+    print()
+    
+    if result.get('playwright_script'):
+        print(f"Playwright Script: {result['playwright_script']}")
+    
+    if result.get('test_url'):
+        print(f"Test URL: {result['test_url']}")
+    
+    if result.get('playwright_script_endpoint'):
+        print(f"Script Endpoint: {result['playwright_script_endpoint']}")
+    
+    if not compact and result.get('stack_trace'):
+        print()
+        print("Stack Trace:")
+        print("-" * 40)
+        print(result['stack_trace'][:500])  # First 500 chars
+        if len(result['stack_trace']) > 500:
+            print("... (truncated)")
+
+def main():
+    """Main menu"""
+    import sys
+    
+    if len(sys.argv) > 1:
+        if sys.argv[1] == "latest":
+            view_latest()
+        elif sys.argv[1] == "all":
+            view_all()
+        else:
+            print("Usage:")
+            print("  python view_results.py          # View latest result (default)")
+            print("  python view_results.py latest   # View latest result")
+            print("  python view_results.py all      # View all results")
+            print()
+            print("Examples:")
+            print("  python view_results.py          → Shows most recent triage")
+            print("  python view_results.py all      → Shows all triaged failures")
+    else:
+        view_latest()
+
+if __name__ == "__main__":
+    main()

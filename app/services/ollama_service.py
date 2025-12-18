@@ -18,7 +18,7 @@ def _call_ollama(model_name: str, prompt: str, num_predict: int = 800) -> str:
         "top_k": 40,
     }
 
-    resp = requests.post(OLLAMA_API_URL, json=payload, timeout=180)
+    resp = requests.post(OLLAMA_API_URL, json=payload, timeout=300)
     resp.raise_for_status()
     data = resp.json()
     return data.get("response", "").strip()
@@ -61,10 +61,48 @@ def _heuristic_bug_title(failure_text: str) -> str:
     test_name = _extract_test_name(failure_text)
     em_low = error_msg.lower()
 
-    # 🔹 Playwright-style title assertion failures
-    # e.g. "expect(page).toHaveTitle(expected) failed"
+    # 🔹 Playwright-specific assertion failures - detect BEFORE generic cleaning
+    # toHaveTitle
     if "tohavetitle" in em_low or "to have title" in em_low:
         return "Page title does not match expected value"
+    
+    # toBeVisible
+    if "tobevisible" in em_low or "to be visible" in em_low:
+        if "button" in em_low:
+            return "Expected button element is not visible"
+        elif "input" in em_low:
+            return "Expected input field is not visible"
+        return "Expected UI element is not visible"
+    
+    # toHaveURL
+    if "tohaveurl" in em_low or "to have url" in em_low:
+        return "Page URL does not match expected value"
+    
+    # toHaveText
+    if "tohavetext" in em_low or "to have text" in em_low:
+        if "heading" in em_low or "h1" in em_low:
+            return "Heading text does not match expected value"
+        return "Element text content does not match expected value"
+    
+    # toHaveCount
+    if "tohavecount" in em_low or "to have count" in em_low:
+        if "paragraph" in em_low:
+            return "Paragraph count does not match expected value"
+        return "Element count does not match expected value"
+    
+    # toContainText
+    if "tocontaintext" in em_low or "to contain text" in em_low:
+        return "Element does not contain expected text"
+    
+    # toBeEnabled / toBeDisabled
+    if "tobeenabled" in em_low or "to be enabled" in em_low:
+        return "Element is not enabled as expected"
+    if "tobedisabled" in em_low or "to be disabled" in em_low:
+        return "Element is not disabled as expected"
+    
+    # toBeChecked
+    if "tobechecked" in em_low or "to be checked" in em_low:
+        return "Checkbox is not checked as expected"
 
     # Strip anything after 'Traceback' or long technical noise
     if "traceback" in em_low:

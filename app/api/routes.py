@@ -30,6 +30,18 @@ def triage_failure(payload: FailureInput):
         )
 
 
+@router.get("/triage/latest", response_model=TriageOutput)
+def get_latest_triage_result():
+    """
+    Retrieve the most recently executed test result.
+    This returns the latest triage result based on creation time.
+    """
+    result = storage_service.get_latest_result()
+    if result is None:
+        raise HTTPException(status_code=404, detail="No triage results found. Run a test first.")
+    return result
+
+
 @router.get("/triage/{result_id}", response_model=TriageOutput)
 def get_triage_result(result_id: str):
     """
@@ -52,6 +64,9 @@ def list_triage_results():
         total=len(results),
         results=results
     )
+
+
+
 
 
 @router.delete("/triage/{result_id}")

@@ -1,0 +1,451 @@
+{
+  "config": {
+    "configFile": "C:\\bug-triage-engine\\playwright.config.js",
+    "rootDir": "C:/bug-triage-engine",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json"
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/bug-triage-engine/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/bug-triage-engine",
+        "testIgnore": [],
+        "testMatch": [
+          "*.spec.js"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.57.0",
+    "workers": 6,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "demo.spec.js",
+      "file": "demo.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Demo Failure Tests",
+          "file": "demo.spec.js",
+          "line": 8,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should fail - incorrect page title",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 13692,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWelcome to \u001b[27mExample \u001b[7mWebsite\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"Example \u001b[7mDomain\u001b[27m\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 Ã— unexpected value \"Example Domain\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWelcome to \u001b[27mExample \u001b[7mWebsite\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"Example \u001b[7mDomain\u001b[27m\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 Ã— unexpected value \"Example Domain\"\u001b[22m\n\n    at C:\\bug-triage-engine\\demo.spec.js:13:28",
+                        "location": {
+                          "file": "C:\\bug-triage-engine\\demo.spec.js",
+                          "column": 28,
+                          "line": 13
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 11 |\u001b[39m         \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mgoto(\u001b[32m'https://example.com'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 12 |\u001b[39m         \u001b[90m// This will fail because the actual title is \"Example Domain\"\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 13 |\u001b[39m         \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveTitle(\u001b[32m'Welcome to Example Website'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 14 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 15 |\u001b[39m\n \u001b[90m 16 |\u001b[39m     test(\u001b[32m'should fail - missing button element'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\bug-triage-engine\\demo.spec.js",
+                            "column": 28,
+                            "line": 13
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveTitle\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"\u001b[7mWelcome to \u001b[27mExample \u001b[7mWebsite\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"Example \u001b[7mDomain\u001b[27m\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveTitle\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 Ã— unexpected value \"Example Domain\"\u001b[22m\n\n\n  11 |         await page.goto('https://example.com');\n  12 |         // This will fail because the actual title is \"Example Domain\"\n> 13 |         await expect(page).toHaveTitle('Welcome to Example Website');\n     |                            ^\n  14 |     });\n  15 |\n  16 |     test('should fail - missing button element', async ({ page }) => {\n    at C:\\bug-triage-engine\\demo.spec.js:13:28"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-12-18T06:16:05.289Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-should-fail---incorrect-page-title-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-should-fail---incorrect-page-title-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-should-fail---incorrect-page-title-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\bug-triage-engine\\demo.spec.js",
+                        "column": 28,
+                        "line": 13
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "e55eebcb6d281b4de51c-fdb4ffcb0671037eb6fd",
+              "file": "demo.spec.js",
+              "line": 10,
+              "column": 5
+            },
+            {
+              "title": "should fail - missing button element",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5915,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('button#login')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('button#login')\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('button#login')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('button#login')\u001b[22m\n\n    at C:\\bug-triage-engine\\demo.spec.js:20:35",
+                        "location": {
+                          "file": "C:\\bug-triage-engine\\demo.spec.js",
+                          "column": 35,
+                          "line": 20
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 18 |\u001b[39m         \u001b[90m// This will fail because the button doesn't exist\u001b[39m\n \u001b[90m 19 |\u001b[39m         \u001b[36mconst\u001b[39m loginButton \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'button#login'\u001b[39m)\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 20 |\u001b[39m         \u001b[36mawait\u001b[39m expect(loginButton)\u001b[33m.\u001b[39mtoBeVisible()\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                   \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 21 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 22 |\u001b[39m\n \u001b[90m 23 |\u001b[39m     test(\u001b[32m'should fail - incorrect URL navigation'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\bug-triage-engine\\demo.spec.js",
+                            "column": 35,
+                            "line": 20
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeVisible\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator: locator('button#login')\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n\u001b[2m  - Expect \"toBeVisible\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('button#login')\u001b[22m\n\n\n  18 |         // This will fail because the button doesn't exist\n  19 |         const loginButton = page.locator('button#login');\n> 20 |         await expect(loginButton).toBeVisible();\n     |                                   ^\n  21 |     });\n  22 |\n  23 |     test('should fail - incorrect URL navigation', async ({ page }) => {\n    at C:\\bug-triage-engine\\demo.spec.js:20:35"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-12-18T06:16:21.786Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-should-fail---missing-button-element-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-should-fail---missing-button-element-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-should-fail---missing-button-element-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\bug-triage-engine\\demo.spec.js",
+                        "column": 35,
+                        "line": 20
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "e55eebcb6d281b4de51c-d660747bc485c949f506",
+              "file": "demo.spec.js",
+              "line": 16,
+              "column": 5
+            },
+            {
+              "title": "should fail - incorrect URL navigation",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 8347,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"https://www.\u001b[7mexample.org/\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"https://www.\u001b[7miana.org/help/example-domains\u001b[27m\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 Ã— unexpected value \"https://www.iana.org/help/example-domains\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"https://www.\u001b[7mexample.org/\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"https://www.\u001b[7miana.org/help/example-domains\u001b[27m\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 Ã— unexpected value \"https://www.iana.org/help/example-domains\"\u001b[22m\n\n    at C:\\bug-triage-engine\\demo.spec.js:27:28",
+                        "location": {
+                          "file": "C:\\bug-triage-engine\\demo.spec.js",
+                          "column": 28,
+                          "line": 27
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 25 |\u001b[39m         \u001b[36mawait\u001b[39m page\u001b[33m.\u001b[39mclick(\u001b[32m'a'\u001b[39m)\u001b[33m;\u001b[39m \u001b[90m// Click the \"More information...\" link\u001b[39m\n \u001b[90m 26 |\u001b[39m         \u001b[90m// This will fail because we navigate to iana.org, not example.org\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 27 |\u001b[39m         \u001b[36mawait\u001b[39m expect(page)\u001b[33m.\u001b[39mtoHaveURL(\u001b[32m'https://www.example.org/'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                            \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 28 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 29 |\u001b[39m\n \u001b[90m 30 |\u001b[39m     test(\u001b[32m'should fail - text content mismatch'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\bug-triage-engine\\demo.spec.js",
+                            "column": 28,
+                            "line": 27
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mpage\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nExpected: \u001b[32m\"https://www.\u001b[7mexample.org/\u001b[27m\"\u001b[39m\nReceived: \u001b[31m\"https://www.\u001b[7miana.org/help/example-domains\u001b[27m\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveURL\" with timeout 5000ms\u001b[22m\n\u001b[2m    9 Ã— unexpected value \"https://www.iana.org/help/example-domains\"\u001b[22m\n\n\n  25 |         await page.click('a'); // Click the \"More information...\" link\n  26 |         // This will fail because we navigate to iana.org, not example.org\n> 27 |         await expect(page).toHaveURL('https://www.example.org/');\n     |                            ^\n  28 |     });\n  29 |\n  30 |     test('should fail - text content mismatch', async ({ page }) => {\n    at C:\\bug-triage-engine\\demo.spec.js:27:28"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-12-18T06:16:30.259Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-sh-156e8----incorrect-URL-navigation-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-sh-156e8----incorrect-URL-navigation-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-sh-156e8----incorrect-URL-navigation-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\bug-triage-engine\\demo.spec.js",
+                        "column": 28,
+                        "line": 27
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "e55eebcb6d281b4de51c-beea70bac3576b32440e",
+              "file": "demo.spec.js",
+              "line": 23,
+              "column": 5
+            },
+            {
+              "title": "should fail - text content mismatch",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 3,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5819,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('h1')\nExpected: \u001b[32m\"Welcome to Our Website\"\u001b[39m\nReceived: \u001b[31m\"Example Domain\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\u001b[2m    9 Ã— locator resolved to <h1>Example Domain</h1>\u001b[22m\n\u001b[2m      - unexpected value \"Example Domain\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('h1')\nExpected: \u001b[32m\"Welcome to Our Website\"\u001b[39m\nReceived: \u001b[31m\"Example Domain\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\u001b[2m    9 Ã— locator resolved to <h1>Example Domain</h1>\u001b[22m\n\u001b[2m      - unexpected value \"Example Domain\"\u001b[22m\n\n    at C:\\bug-triage-engine\\demo.spec.js:34:31",
+                        "location": {
+                          "file": "C:\\bug-triage-engine\\demo.spec.js",
+                          "column": 31,
+                          "line": 34
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 32 |\u001b[39m         \u001b[36mconst\u001b[39m heading \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'h1'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 33 |\u001b[39m         \u001b[90m// This will fail because the actual text is \"Example Domain\"\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 34 |\u001b[39m         \u001b[36mawait\u001b[39m expect(heading)\u001b[33m.\u001b[39mtoHaveText(\u001b[32m'Welcome to Our Website'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                               \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 35 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 36 |\u001b[39m\n \u001b[90m 37 |\u001b[39m     test(\u001b[32m'should fail - element count assertion'\u001b[39m\u001b[33m,\u001b[39m \u001b[36masync\u001b[39m ({ page }) \u001b[33m=>\u001b[39m {\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\bug-triage-engine\\demo.spec.js",
+                            "column": 31,
+                            "line": 34
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('h1')\nExpected: \u001b[32m\"Welcome to Our Website\"\u001b[39m\nReceived: \u001b[31m\"Example Domain\"\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('h1')\u001b[22m\n\u001b[2m    9 Ã— locator resolved to <h1>Example Domain</h1>\u001b[22m\n\u001b[2m      - unexpected value \"Example Domain\"\u001b[22m\n\n\n  32 |         const heading = page.locator('h1');\n  33 |         // This will fail because the actual text is \"Example Domain\"\n> 34 |         await expect(heading).toHaveText('Welcome to Our Website');\n     |                               ^\n  35 |     });\n  36 |\n  37 |     test('should fail - element count assertion', async ({ page }) => {\n    at C:\\bug-triage-engine\\demo.spec.js:34:31"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-12-18T06:16:41.182Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-should-fail---text-content-mismatch-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-should-fail---text-content-mismatch-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-should-fail---text-content-mismatch-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\bug-triage-engine\\demo.spec.js",
+                        "column": 31,
+                        "line": 34
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "e55eebcb6d281b4de51c-61ec6f5e71d2316a342c",
+              "file": "demo.spec.js",
+              "line": 30,
+              "column": 5
+            },
+            {
+              "title": "should fail - element count assertion",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 4,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 5792,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('p')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m2\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('p')\u001b[22m\n\u001b[2m    9 Ã— locator resolved to 2 elements\u001b[22m\n\u001b[2m      - unexpected value \"2\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('p')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m2\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('p')\u001b[22m\n\u001b[2m    9 Ã— locator resolved to 2 elements\u001b[22m\n\u001b[2m      - unexpected value \"2\"\u001b[22m\n\n    at C:\\bug-triage-engine\\demo.spec.js:41:34",
+                        "location": {
+                          "file": "C:\\bug-triage-engine\\demo.spec.js",
+                          "column": 34,
+                          "line": 41
+                        },
+                        "snippet": "\u001b[0m \u001b[90m 39 |\u001b[39m         \u001b[36mconst\u001b[39m paragraphs \u001b[33m=\u001b[39m page\u001b[33m.\u001b[39mlocator(\u001b[32m'p'\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m 40 |\u001b[39m         \u001b[90m// This will fail because there are only 2 paragraphs, not 5\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 41 |\u001b[39m         \u001b[36mawait\u001b[39m expect(paragraphs)\u001b[33m.\u001b[39mtoHaveCount(\u001b[35m5\u001b[39m)\u001b[33m;\u001b[39m\n \u001b[90m    |\u001b[39m                                  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 42 |\u001b[39m     })\u001b[33m;\u001b[39m\n \u001b[90m 43 |\u001b[39m\n \u001b[90m 44 |\u001b[39m })\u001b[33m;\u001b[39m\u001b[0m"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "C:\\bug-triage-engine\\demo.spec.js",
+                            "column": 34,
+                            "line": 41
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveCount\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator:  locator('p')\nExpected: \u001b[32m5\u001b[39m\nReceived: \u001b[31m2\u001b[39m\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toHaveCount\" with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator('p')\u001b[22m\n\u001b[2m    9 Ã— locator resolved to 2 elements\u001b[22m\n\u001b[2m      - unexpected value \"2\"\u001b[22m\n\n\n  39 |         const paragraphs = page.locator('p');\n  40 |         // This will fail because there are only 2 paragraphs, not 5\n> 41 |         await expect(paragraphs).toHaveCount(5);\n     |                                  ^\n  42 |     });\n  43 |\n  44 | });\n    at C:\\bug-triage-engine\\demo.spec.js:41:34"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-12-18T06:16:49.461Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-sh-9c749-l---element-count-assertion-chromium\\test-failed-1.png"
+                        },
+                        {
+                          "name": "video",
+                          "contentType": "video/webm",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-sh-9c749-l---element-count-assertion-chromium\\video.webm"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "C:\\bug-triage-engine\\test-results\\demo-Demo-Failure-Tests-sh-9c749-l---element-count-assertion-chromium\\error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "C:\\bug-triage-engine\\demo.spec.js",
+                        "column": 34,
+                        "line": 41
+                      }
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "e55eebcb6d281b4de51c-00b46377d17d10676d72",
+              "file": "demo.spec.js",
+              "line": 37,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-12-18T06:16:03.271Z",
+    "duration": 52682.446,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 5,
+    "flaky": 0
+  }
+}

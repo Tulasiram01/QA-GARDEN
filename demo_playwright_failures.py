@@ -1,0 +1,211 @@
+"""
+Demo Playwright Failures - Quick Test Runner
+Simplified script to run demo.spec.js and send failures to triage engine
+"""
+import subprocess
+import json
+import os
+import requests
+import re
+from datetime import datetime
+
+# Configuration
+API_URL = "http://192.168.1.13:8003/api/triage"
+LLM_MODEL = "gemma:2b"
+BERT_URL = "http://192.168.1.13:8001/triage"
+REPORT_FILE = "playwright-report.json"
+
+def run_tests():
+    """Run the demo Playwright tests"""
+    print("=" * 80)
+    print("Running Demo Playwright Tests")
+    print("=" * 80)
+    print()
+    
+    try:
+        # Run Playwright tests with JSON reporter
+        result = subprocess.run(
+            ["npx", "playwright", "test", "demo.spec.js", "--reporter=json"],
+            capture_output=True,
+            text=True,
+            shell=True
+        )
+        
+        print(f"Tests completed with exit code: {result.returncode}")
+        
+        # Save the JSON output
+        if result.stdout:
+            with open(REPORT_FILE, 'w', encoding='utf-8') as f:
+                f.write(result.stdout)
+            print(f"✓ Report saved to {REPORT_FILE}")
+            return True
+        else:
+            print("✗ No output from Playwright")
+            return False
+            
+    except Exception as e:
+        print(f"✗ Error running tests: {e}")
+        return False
+
+def strip_ansi_codes(text):
+    """Remove ANSI escape codes (color codes) from text"""
+    if not text:
+        return text
+    # Pattern to match ANSI escape sequences
+    ansi_escape = re.compile(r'\x1b\[[0-9;]*m')
+    return ansi_escape.sub('', text)
+
+def parse_failures():
+    """Parse failures from the JSON report"""
+    print("\n" + "=" * 80)
+    print("Parsing Test Failures")
+    print("=" * 80)
+    print()
+    
+    if not os.path.exists(REPORT_FILE):
+        print(f"✗ Report file not found: {REPORT_FILE}")
+        return []
+    
+    try:
+        with open(REPORT_FILE, 'r', encoding='utf-8') as f:
+            report = json.load(f)
+        
+        failures = []
+        
+        # Parse the Playwright report structure (handle nested suites)
+        def process_suite(suite):
+            # Process specs in this suite
+            for spec in suite.get('specs', []):
+                for test in spec.get('tests', []):
+                    for result in test.get('results', []):
+                        if result.get('status') in ['failed', 'timedOut']:
+                            # Extract failure data
+                            test_name = spec.get('title', 'Unknown Test')
+                            file_path = os.path.basename(spec.get('file', 'demo.spec.js'))
+                            
+                            error = result.get('error', {})
+                            error_message = strip_ansi_codes(error.get('message', 'Test failed'))
+                            stack_trace = strip_ansi_codes(error.get('stack', ''))
+                            
+                            # Build logs
+                            logs = [
+                                f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Test: {test_name}",
+                                f"Status: {result.get('status')}",
+                                f"Duration: {result.get('duration', 0)}ms",
+                                f"Error: {error_message}"
+                            ]
+                            
+                            failure = {
+                                "test_name": test_name,
+                                "file_path": file_path,
+                                "error_message": error_message,
+                                "stack_trace": stack_trace,
+                                "logs": '\n'.join(logs),
+                                "llm_model": LLM_MODEL,
+                                "bert_url": BERT_URL,
+                                "labels": ["playwright", "demo", "automated"],
+                                "playwright_script_endpoint": f"http://localhost:8005/api/scripts/{file_path}"
+                            }
+                            
+                            failures.append(failure)
+            
+            # Recursively process nested suites
+            for nested_suite in suite.get('suites', []):
+                process_suite(nested_suite)
+        
+        # Start processing from top-level suites
+        for suite in report.get('suites', []):
+            process_suite(suite)
+        
+        print(f"Found {len(failures)} failed test(s)")
+        return failures
+        
+    except Exception as e:
+        print(f"✗ Error parsing report: {e}")
+        import traceback
+        traceback.print_exc()
+        return []
+
+def send_to_triage(failures):
+    """Send failures to the triage engine"""
+    print("\n" + "=" * 80)
+    print("Sending Failures to Triage Engine")
+    print("=" * 80)
+    print()
+    
+    if not failures:
+        print("No failures to send")
+        return
+    
+    success = 0
+    failed = 0
+    
+    for i, failure in enumerate(failures, 1):
+        print(f"[{i}/{len(failures)}] {failure['test_name']}")
+        print("-" * 80)
+        
+        try:
+            response = requests.post(API_URL, json=failure, timeout=300)
+            response.raise_for_status()
+            result = response.json()
+            
+            print(f"✓ SUCCESS")
+            print(f"  Title: {result.get('title', 'N/A')}")
+            print(f"  Error Line: {result.get('error_line', 'N/A')}")
+            print(f"  Playwright Script: {result.get('playwright_script', 'N/A')}")
+            print(f"  ID: {result.get('id', 'N/A')}")
+            success += 1
+            
+        except requests.exceptions.ConnectionError:
+            print(f"✗ ERROR: Cannot connect to {API_URL}")
+            print("  Make sure the triage engine is running: python main.py")
+            failed += 1
+            
+        except Exception as e:
+            print(f"✗ ERROR: {e}")
+            failed += 1
+        
+        print()
+    
+    print("=" * 80)
+    print("SUMMARY")
+    print("=" * 80)
+    print(f"✓ Successfully triaged: {success}")
+    print(f"✗ Failed to triage: {failed}")
+    print(f"Total failures: {len(failures)}")
+    print()
+
+def main():
+    """Main workflow"""
+    print("\n" + "=" * 80)
+    print("DEMO PLAYWRIGHT FAILURES - TRIAGE ENGINE TEST")
+    print("=" * 80)
+    print()
+    
+    # Step 1: Run tests
+    if not run_tests():
+        print("\n✗ Failed to run tests")
+        print("\nTry running manually:")
+        print("  npx playwright test demo.spec.js")
+        return
+    
+    # Step 2: Parse failures
+    failures = parse_failures()
+    
+    if not failures:
+        print("\n✓ No failures found (all tests passed)")
+        return
+    
+    # Step 3: Send to triage engine
+    send_to_triage(failures)
+    
+    # Step 4: Next steps
+    print("=" * 80)
+    print("NEXT STEPS")
+    print("=" * 80)
+    print("View results with:")
+    print("  python view_results.py")
+    print("=" * 80)
+
+if __name__ == "__main__":
+    main()

@@ -60,6 +60,18 @@ def get_all_results() -> List[dict]:
     return results
 
 
+def get_latest_result() -> Optional[dict]:
+    """
+    Retrieve the most recently created triage result.
+    
+    Returns:
+        The latest result dictionary if any exist, None otherwise
+    """
+    results = get_all_results()
+    return results[0] if results else None
+
+
+
 def delete_result(result_id: str) -> bool:
     """
     Delete a specific triage result by ID.

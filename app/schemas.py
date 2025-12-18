@@ -15,6 +15,7 @@ class FailureInput(BaseModel):
     labels: Optional[List[str]] = None   # optional list of labels
     test_url: Optional[str] = None       # optional URL of the page being tested (e.g., "https://example.com/login")
     playwright_script_url: Optional[str] = None  # optional playwright script URL (e.g., "file:///C:/tests/login.spec.js#L25")
+    playwright_script_endpoint: Optional[str] = None  # optional endpoint URL to retrieve/execute Playwright scripts (e.g., "http://playwright-service.com/api/scripts/login-test")
 
 
 class TriageOutput(BaseModel):
@@ -26,6 +27,7 @@ class TriageOutput(BaseModel):
     error_line: Optional[int] = None
     playwright_script: Optional[str] = None  # Clickable file:// URL with line number anchor (e.g., file:///path/to/file.js#L42)
     test_url: Optional[str] = None  # Clickable URL of the page being tested (e.g., https://example.com/login)
+    playwright_script_endpoint: Optional[str] = None  # Endpoint URL for external Playwright script service
     # Metadata fields (added when stored)
     id: Optional[str] = None
     created_at: Optional[str] = None
