@@ -1,0 +1,27 @@
+```bash
+# RUN ALL TESTS AT ONCE - SINGLE COMMAND
+
+npx playwright test tests/ --reporter=json > playwright-report.json && python demo_playwright_failures.py
+```
+
+**This runs all 10 tests from 5 files and triages them automatically!**
+
+---
+
+## What Changed:
+- ✅ Reduced from 28 tests → 10 tests (2 per file)
+- ✅ All tests are short and simple
+- ✅ All will fail for triage testing
+- ✅ Single command runs everything
+
+## Files:
+- `tests/login.spec.js` (2 tests)
+- `tests/checkout.spec.js` (2 tests)
+- `tests/search.spec.js` (2 tests)
+- `tests/profile.spec.js` (2 tests)
+- `tests/navigation.spec.js` (2 tests)
+
+## View Results:
+```bash
+python view_results.py
+```

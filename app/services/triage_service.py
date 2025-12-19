@@ -2,6 +2,7 @@ from typing import Any, Dict, Optional, List, Tuple
 import os
 
 from app.services.ollama_service import generate_bug_report
+from app.services.playwright_label_detector import detect_playwright_label
 from app.schemas import FailureInput
 from app.utils.url_utils import format_file_url_with_line, extract_test_url_from_logs
 
@@ -295,6 +296,14 @@ Logs: {payload.logs}
     # Priority 3: Extract from error message as fallback
     elif payload.error_message:
         test_url = extract_test_url_from_logs(payload.error_message)
+    
+    # Generate intelligent triage label using BERT classification
+    triage_label = detect_playwright_label(
+        error_message=payload.error_message,
+        stack_trace=payload.stack_trace,
+        failure_text=failure_text,
+        bert_url=payload.bert_url
+    )
 
     return {
         "title": bug_title,
@@ -306,5 +315,6 @@ Logs: {payload.logs}
         "playwright_script": playwright_script_url,
         "test_url": test_url,
         "playwright_script_endpoint": payload.playwright_script_endpoint,
+        "triage_label": triage_label,
     }
 

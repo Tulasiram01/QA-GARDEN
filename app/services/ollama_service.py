@@ -18,7 +18,7 @@ def _call_ollama(model_name: str, prompt: str, num_predict: int = 800) -> str:
         "top_k": 40,
     }
 
-    resp = requests.post(OLLAMA_API_URL, json=payload, timeout=300)
+    resp = requests.post(OLLAMA_API_URL, json=payload, timeout=600)
     resp.raise_for_status()
     data = resp.json()
     return data.get("response", "").strip()

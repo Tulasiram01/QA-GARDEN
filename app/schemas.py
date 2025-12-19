@@ -28,6 +28,7 @@ class TriageOutput(BaseModel):
     playwright_script: Optional[str] = None  # Clickable file:// URL with line number anchor (e.g., file:///path/to/file.js#L42)
     test_url: Optional[str] = None  # Clickable URL of the page being tested (e.g., https://example.com/login)
     playwright_script_endpoint: Optional[str] = None  # Endpoint URL for external Playwright script service
+    triage_label: Optional[str] = None  # Intelligent label for error categorization (e.g., "Assertion: Title Mismatch", "Timeout Error")
     # Metadata fields (added when stored)
     id: Optional[str] = None
     created_at: Optional[str] = None

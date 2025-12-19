@@ -51,4 +51,5 @@ async def predict(request: BertRequest):
 
 if __name__ == "__main__":
     # For direct "python bert_server.py" runs
-    uvicorn.run("bert_server:app", host="127.0.0.1", port=8001, reload=True)
+    # Changed to 0.0.0.0 to accept connections from network (not just localhost)
+    uvicorn.run("bert_server:app", host="0.0.0.0", port=8001, reload=True)

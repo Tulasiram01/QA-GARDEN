@@ -91,6 +91,10 @@ def print_result(result, compact=False):
     
     print(f"Status: {result.get('status', 'N/A')}")
     print(f"Error Line: {result.get('error_line', 'N/A')}")
+    
+    if result.get('triage_label'):
+        print(f"Triage Label: {result['triage_label']}")
+    
     print()
     
     if result.get('playwright_script'):

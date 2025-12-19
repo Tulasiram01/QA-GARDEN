@@ -1,6 +1,6 @@
 """
-Demo Playwright Failures - Quick Test Runner
-Simplified script to run demo.spec.js and send failures to triage engine
+Run All Tests and Triage Failures
+Runs all Playwright tests in tests/ directory and sends failures to triage engine
 """
 import subprocess
 import json
@@ -16,16 +16,16 @@ BERT_URL = "http://192.168.1.13:8001/triage"
 REPORT_FILE = "playwright-report.json"
 
 def run_tests():
-    """Run the demo Playwright tests"""
+    """Run all Playwright tests in tests/ directory"""
     print("=" * 80)
-    print("Running Demo Playwright Tests")
+    print("Running All Playwright Tests")
     print("=" * 80)
     print()
     
     try:
-        # Run Playwright tests with JSON reporter
+        # Run ALL tests in tests/ directory with JSON reporter
         result = subprocess.run(
-            ["npx", "playwright", "test", "demo.spec.js", "--reporter=json"],
+            ["npx", "playwright", "test", "tests/", "--reporter=json"],
             capture_output=True,
             text=True,
             shell=True
@@ -81,7 +81,7 @@ def parse_failures():
                         if result.get('status') in ['failed', 'timedOut']:
                             # Extract failure data
                             test_name = spec.get('title', 'Unknown Test')
-                            file_path = os.path.basename(spec.get('file', 'demo.spec.js'))
+                            file_path = os.path.basename(spec.get('file', 'unknown.spec.js'))
                             
                             error = result.get('error', {})
                             error_message = strip_ansi_codes(error.get('message', 'Test failed'))
@@ -103,7 +103,7 @@ def parse_failures():
                                 "logs": '\n'.join(logs),
                                 "llm_model": LLM_MODEL,
                                 "bert_url": BERT_URL,
-                                "labels": ["playwright", "demo", "automated"],
+                                "labels": ["playwright", "automated"],
                                 "playwright_script_endpoint": f"http://localhost:8005/api/scripts/{file_path}"
                             }
                             
@@ -179,7 +179,7 @@ def send_to_triage(failures):
 def main():
     """Main workflow"""
     print("\n" + "=" * 80)
-    print("DEMO PLAYWRIGHT FAILURES - TRIAGE ENGINE TEST")
+    print("RUN ALL TESTS AND TRIAGE")
     print("=" * 80)
     print()
     
@@ -187,7 +187,7 @@ def main():
     if not run_tests():
         print("\n[ERROR] Failed to run tests")
         print("\nTry running manually:")
-        print("  npx playwright test demo.spec.js")
+        print("  npx playwright test tests/")
         return
     
     # Step 2: Parse failures
