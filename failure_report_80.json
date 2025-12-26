@@ -1,0 +1,13 @@
+﻿{
+    "stack_trace":  "Log file missing. Check Step 3 output.",
+    "build_id":  "80",
+    "timestamp":  "12/26/2025 18:53:08",
+    "source_repo":  "https://github.com/sivaparvathi-coastal7/QA_Garden",
+    "test_name":  "QA Garden Automated Tests",
+    "status":  "FAILED",
+    "labels":  [
+                   "bug",
+                   "auto-report",
+                   "playwright"
+               ]
+}
