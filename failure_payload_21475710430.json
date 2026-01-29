@@ -1,0 +1,14 @@
+[
+  {
+    "test_name": "tests/welcome/test_welcome.py",
+    "file_path": "tests/welcome/test_welcome.py",
+    "error_message": "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/_pytest/python.py:507: in importtestmodule",
+    "stack_trace": "/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/_pytest/python.py:507: in importtestmodule\n    mod = import_path(\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/_pytest/pathlib.py:587: in import_path\n    importlib.import_module(module_name)\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/importlib/__init__.py:126: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n<frozen importlib._bootstrap>:1204: in _gcd_import\n    ???\n<frozen importlib._bootstrap>:1176: in _find_and_load\n    ???\n<frozen importlib._bootstrap>:1147: in _find_and_load_unlocked\n    ???\n<frozen importlib._bootstrap>:690: in _load_unlocked\n    ???\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:188: in exec_module\n    source_stat, co = _rewrite_test(fn, self.config)\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/_pytest/assertion/rewrite.py:357: in _rewrite_test\n    tree = ast.parse(source, filename=strfn)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/ast.py:50: in parse\n    return compile(source, filename, mode, flags,\nE     File \"/home/runner/work/qa_garden_ci_cd/qa_garden_ci_cd/tests/welcome/test_welcome.py\", line 16\nE       authenticated_page.locator('button:has-text('Pod Gallery')').click()\nE                                  ^^^^^^^^^^^^^^^^^^^^^\nE   SyntaxError: invalid syntax. Perhaps you forgot a comma?",
+    "logs": "",
+    "labels": [
+      "collection_error"
+    ],
+    "test_url": "https://github.com/sivaparvathi-coastal7/qa_garden_ci_cd/actions/runs/21475710430",
+    "playwright_script_url": "https://github.com/sivaparvathi-coastal7/qa_garden_ci_cd/blob/main/tests/welcome/test_welcome.py"
+  }
+]
