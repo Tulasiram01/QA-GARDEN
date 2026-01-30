@@ -1,0 +1,13 @@
+[
+  {
+    "test_name": "DEBUG_ALL_TESTS_PASSED",
+    "error_message": "All 0 tests passed in CI",
+    "file_path": "debug",
+    "stack_trace": "Summary: {'total': 0, 'collected': 0}",
+    "logs": "This indicates environment differences between local and CI",
+    "labels": [
+      "debug",
+      "all_passed"
+    ]
+  }
+]
