@@ -1,0 +1,512 @@
+[
+  {
+    "test_name": "tests/login/test_login.py::test_login_page_elements_visibility",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_successful_login",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_invalid_credentials_login",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_empty_email_login",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_empty_password_login",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_invalid_email_format_login",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_show_password_toggle",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_navigate_to_sign_up_page",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_forgot_password_link_opens_modal",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_sign_in_with_google_button",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_forgot_password_modal_elements_visibility",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_close_forgot_password_modal",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_send_reset_code_valid_email",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_send_reset_code_invalid_email_format",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/login/test_login.py::test_send_reset_code_empty_email",
+    "error_message": "",
+    "file_path": "tests/login/test_login.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpPageElementsVisibility",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SuccessfulSignUp",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpMissingFirstName",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpMissingLastName",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpMissingEmail",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpMissingPassword",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpMissingReEnterPassword",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpInvalidEmailFormat",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpMismatchedPasswords",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpShortPassword",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpInvalidPhoneNumberFormat",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_NavigateToLoginPageFromSignUp",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpWithGoogleButton",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/signup/test_signup.py::test_SignUpWithFacebookButton",
+    "error_message": "",
+    "file_path": "tests/signup/test_signup.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_001_NavigatePodGalleryButton",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_002_NavigateUpgradeButton",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_003_GenerateScriptMinimumFields",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_004_GenerateScriptAllFields",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_005_GenerateScriptMissingTopic",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_006_AIToggleEnableDisable",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_007_SelectLanguageOption",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_008_SelectNumSpeakersOption",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_009_SelectCategoryOption",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_010_SelectDurationOption",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_011_SelectToneOption",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_012_InputHostGuestNames",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_013_ClickPodcastReadyItem",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_014_ClickScriptReadyItem",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_015_ClickScriptFailedItem",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_016_HostNameBoundaryInput",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_017_HostGuestSpecialCharacters",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_018_AIToggleSelectArtifactInteraction",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_019_RequiredFieldIndicators",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_020_ClickSnappodLogoNavigation",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_021_ClickUserProfileNavigation",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  },
+  {
+    "test_name": "tests/welcome/test_welcome.py::test_PODCAST_TC_022_ClickAllPodcastsTab",
+    "error_message": "",
+    "file_path": "tests/welcome/test_welcome.py",
+    "stack_trace": "",
+    "logs": "",
+    "labels": [
+      "test_failure"
+    ]
+  }
+]
