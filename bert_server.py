@@ -1,55 +1,53 @@
-# C:\bug-triage-engine\bert_server.py
-
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from pydantic import BaseModel
-from typing import List, Optional, Dict
-import uvicorn
+from transformers import BertTokenizer, BertForSequenceClassification
+import torch
+import torch.nn.functional as F
 
-# ---- Request/Response Models ----
+MODEL_PATH = "models/bug_triage_bert"
 
-class BertRequest(BaseModel):
+LABELS = [
+    "UI Error",
+    "Backend Error",
+    "Assertion Failure",
+    "Timeout Error",
+    "Test Data Issue"
+]
+
+tokenizer = BertTokenizer.from_pretrained(MODEL_PATH)
+model = BertForSequenceClassification.from_pretrained(MODEL_PATH)
+model.eval()
+
+app = FastAPI(title="BERT Bug Classifier")
+
+class PredictRequest(BaseModel):
     text: str
-    labels: Optional[List[str]] = None
+    labels: list[str] | None = None
 
-
-class BertResponse(BaseModel):
-    label: str
-    confidence: float
-    scores: Dict[str, float]
-
-
-# ---- FastAPI app ----
-
-app = FastAPI(title="BERT Classification Server")
-
-
-@app.get("/")
-async def root():
-    return {"status": "ok", "service": "bert_server", "message": "BERT server is running"}
-
-
-@app.post("/predict", response_model=BertResponse)
-async def predict(request: BertRequest):
-    """
-    Dummy/Baseline classifier.
-    You can later plug your real BERT model here.
-    """
-    labels = request.labels or ["General"]
-
-    # Simple logic: pick the first label as the "best"
-    best_label = labels[0]
-    score_each = 1.0 / len(labels) if labels else 1.0
-
-    scores = {lbl: score_each for lbl in labels}
-
-    return BertResponse(
-        label=best_label,
-        confidence=score_each,
-        scores=scores,
+@app.post("/predict")
+def predict(req: PredictRequest):
+    inputs = tokenizer(
+        req.text,
+        return_tensors="pt",
+        truncation=True,
+        padding=True
     )
 
+    with torch.no_grad():
+        outputs = model(**inputs)
+        probs = F.softmax(outputs.logits, dim=1)[0]
 
-if __name__ == "__main__":
-    # For direct "python bert_server.py" runs
-    # Changed to 0.0.0.0 to accept connections from network (not just localhost)
-    uvicorn.run("bert_server:app", host="0.0.0.0", port=8001, reload=True)
+    label_space = req.labels if req.labels else LABELS
+
+    scores = {
+        label_space[i]: float(probs[i])
+        for i in range(len(label_space))
+    }
+
+    best_label = max(scores, key=scores.get)
+
+    return {
+        "label": best_label,
+        "confidence": scores[best_label],
+        "scores": scores
+    }
