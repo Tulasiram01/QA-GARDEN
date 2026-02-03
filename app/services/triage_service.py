@@ -129,6 +129,17 @@ def _map_category_to_labels(category: str, labels: Optional[List[str]]) -> str:
     # fallback: just return the first candidate
     return labels[0]
 
+import re
+
+def clean_text(text: str) -> str:
+    if not text:
+        return ""
+    text = text.lower()
+    text = re.sub(r"\d+", "<NUM>", text)
+    text = re.sub(r"[^a-z0-9 <>\n]", " ", text)
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
+
 
 
 def process_failure(payload: FailureInput) -> Dict[str, Any]:
@@ -296,12 +307,14 @@ Logs: {payload.logs}
     # Priority 3: Extract from error message as fallback
     elif payload.error_message:
         test_url = extract_test_url_from_logs(payload.error_message)
+        
+    cleaned_failure_text = clean_text(failure_text)
     
     # Generate intelligent triage label using BERT classification
     triage_label = detect_playwright_label(
         error_message=payload.error_message,
         stack_trace=payload.stack_trace,
-        failure_text=failure_text,
+        failure_text=cleaned_failure_text,
         bert_url=payload.bert_url
     )
 
