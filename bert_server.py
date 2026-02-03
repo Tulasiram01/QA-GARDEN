@@ -3,8 +3,14 @@ from pydantic import BaseModel
 from transformers import BertTokenizer, BertForSequenceClassification
 import torch
 import torch.nn.functional as F
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+import torch
 
-MODEL_PATH = "models/bug_triage_bert"
+MODEL_PATH = "./trained_bert"  # output of train_bert_classifier.py
+
+tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
+model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
+model.eval()
 
 LABELS = [
     "UI Error",
@@ -13,10 +19,10 @@ LABELS = [
     "Timeout Error",
     "Test Data Issue"
 ]
-
-tokenizer = BertTokenizer.from_pretrained(MODEL_PATH)
-model = BertForSequenceClassification.from_pretrained(MODEL_PATH)
+tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
+model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
 model.eval()
+
 
 app = FastAPI(title="BERT Bug Classifier")
 
@@ -37,7 +43,7 @@ def predict(req: PredictRequest):
         outputs = model(**inputs)
         probs = F.softmax(outputs.logits, dim=1)[0]
 
-    label_space = req.labels if req.labels else LABELS
+    label_space = LABELS
 
     scores = {
         label_space[i]: float(probs[i])
