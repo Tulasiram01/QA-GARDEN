@@ -6,7 +6,7 @@ import torch.nn.functional as F
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 import torch
 
-MODEL_PATH = "./trained_bert"  # output of train_bert_classifier.py
+MODEL_PATH = "bert-triage-system/classifier"  # output of train_bert_classifier.py
 
 tokenizer = AutoTokenizer.from_pretrained(MODEL_PATH)
 model = AutoModelForSequenceClassification.from_pretrained(MODEL_PATH)
